@@ -8,7 +8,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 
 Nothing pending.
 
-## [1.0.0] - 2026-09-12
+## [1.0.0] - 2026-09-13
 
 First release. Three methods, two platforms, both architectures.
 
@@ -21,7 +21,7 @@ First release. Three methods, two platforms, both architectures.
 - New Architecture support through a TurboModule, with an old-architecture fallback. The JS entry point selects the generated spec when the TurboModule proxy is present and `NativeModules.ReloadWidget` otherwise; on Android the Gradle build compiles `src/newarch` or `src/oldarch` from the host app's `newArchEnabled`, both thin wrappers over the same implementation class, so the two paths cannot drift.
 - iOS support, iOS 14 and above. `WidgetCenter` is not exposed to Objective-C at all (the WidgetKit umbrella header is essentially empty and the API exists only in the Swift interface), so the package ships a small Swift core holding the WidgetKit calls behind an Objective-C++ TurboModule shim. Every call into WidgetKit is `@available`-guarded, so a project with a lower deployment target still compiles and the three methods resolve `false` / `[]` there.
 - Android support. No permission is declared and none is needed, which is also why the package requires no Expo config plugin.
-- TypeScript types shipped with the package, MIT license, peer dependency `react-native >= 0.68`, and no runtime dependencies.
+- TypeScript types shipped with the package, MIT license, peer dependency `react-native >= 0.76`, and no runtime dependencies.
 
 [Unreleased]: https://github.com/wneel/react-native-reload-widget/compare/v1.0.0...HEAD
 [1.0.0]: https://github.com/wneel/react-native-reload-widget/releases/tag/v1.0.0

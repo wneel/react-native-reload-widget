@@ -50,14 +50,14 @@ No platform branch in your code, no native target to maintain, and the same call
 - Reload every widget the app owns with `reloadAllWidgets()`, after a language change, a login, or any write the widget reads.
 - Reload a single widget kind with `reloadWidget(kind)`, so a change that only affects one widget does not rebuild the others.
 - List what the user has actually placed with `getInstalledWidgets()`: one entry per placed instance, with its kind, its family on iOS and its id on Android.
-- Compatible with React Native >= 0.68, the new architecture (TurboModules) and backward compatibility with old arch.
+- Compatible with React Native >= 0.76, the new architecture (TurboModules) and backward compatibility with old arch.
 - Minimal setup with low resource usage. No permission, no entitlement, no `Info.plist` key.
 - No call ever rejects: a failure resolves `false` (or `[]`) and is logged, so a widget refresh cannot take down the screen that awaited it.
 - TypeScript types shipped with the package. Zero runtime dependencies.
 
 | Support |  |
 | ----------- | -----------: |
-| react-native version      | >=0.68 |
+| react-native version      | >=0.76 |
 | Android   | ✅ |
 | iOS   | ✅ |
 | New Architecture   | ✅ |
