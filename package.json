@@ -1,6 +1,6 @@
 {
 	"name": "react-native-reload-widget",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"description": "react-native-reload-widget is a lightweight and efficient React Native module that reloads your app's home screen widgets on demand, on iOS and Android.",
 	"source": "./src/index.tsx",
 	"main": "./lib/commonjs/index.js",

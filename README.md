@@ -237,7 +237,7 @@ There is an implementation detail here worth knowing, because it explains the sh
 
 Both architectures are wired to the same calls, which is why the support table claims both:
 
-- **JS**: `src/index.tsx` uses the TurboModule spec (`src/NativeReloadWidget.ts`) when the TurboModule proxy is present, and `NativeModules.ReloadWidget` otherwise. The defensive wrapper that turns a failure into `false` / `[]` plus a `console.error` lives here, once, for both paths.
+- **JS**: the spec (`src/NativeReloadWidget.ts`) resolves the module through `TurboModuleRegistry.get`, which React Native routes to the TurboModule on the new architecture, bridgeless or not, and to `NativeModules.ReloadWidget` on the old one. The defensive wrapper that turns a failure into `false` / `[]` plus a `console.error` lives here, once, for both paths.
 - **iOS**: the header switches on `RCT_NEW_ARCH_ENABLED`, conforming to the generated `NativeReloadWidgetSpec` on the new architecture and to `RCTBridgeModule` on the old one. The `RCT_EXPORT_METHOD` implementations serve both, and both call into the same Swift core.
 - **Android**: the Gradle build compiles `src/newarch` or `src/oldarch` depending on your app's `newArchEnabled`. Both are thin wrappers over the same `ReloadWidgetModuleImpl`, so the two paths cannot drift.
 

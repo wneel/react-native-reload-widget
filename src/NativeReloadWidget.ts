@@ -13,4 +13,4 @@ export interface Spec extends TurboModule {
 	getInstalledWidgets(): Promise<Array<InstalledWidget>>;
 }
 
-export default TurboModuleRegistry.getEnforcing<Spec>('ReloadWidget');
+export default TurboModuleRegistry.get<Spec>('ReloadWidget');

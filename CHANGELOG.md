@@ -8,6 +8,13 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 
 Nothing pending.
 
+## [1.0.1] - 2026-11-09
+
+Fix release, no API change.
+
+### Fixed
+- The JS entry point chose the TurboModule spec only when `global.__turboModuleProxy` was set. Recent React Native no longer installs that global in a bridgeless runtime (it installs `nativeModuleProxy` instead), so on every bridgeless app the check failed and the module was read through `NativeModules.ReloadWidget`. That still worked, only because `NativeModules` is itself backed by the bridgeless proxy there, but the selection was reading a global React Native had stopped setting. The spec now resolves the module with `TurboModuleRegistry.get`, which React Native routes correctly on every architecture, and `src/index.tsx` imports it directly. The spec uses `get` rather than `getEnforcing`, so an unlinked install still reaches the existing linking-error message on first call, resolved as `false` or `[]` like any other failure, instead of throwing at import.
+
 ## [1.0.0] - 2026-09-13
 
 First release. Three methods, two platforms, both architectures.

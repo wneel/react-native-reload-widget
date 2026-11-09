@@ -1,6 +1,7 @@
-import { NativeModules, Platform } from 'react-native';
+import { Platform } from 'react-native';
 
-import type { InstalledWidget } from './NativeReloadWidget';
+import ReloadWidgetModule from './NativeReloadWidget';
+import type { InstalledWidget, Spec } from './NativeReloadWidget';
 
 const LINKING_ERROR =
 	`The package 'react-native-reload-widget' doesn't seem to be linked. Make sure: \n\n` +
@@ -8,17 +9,14 @@ const LINKING_ERROR =
 	'- You rebuilt the app after installing the package\n' +
 	'- You are not using Expo Go\n';
 
-// @ts-ignore
-const isTurboModuleEnabled = global.__turboModuleProxy != null;
-
-const ReloadWidgetModule = isTurboModuleEnabled
-	? require('./NativeReloadWidget').default
-	: NativeModules.ReloadWidget;
-
-const ReloadWidget = ReloadWidgetModule
+// TurboModuleRegistry resolves the module on every architecture: the TurboModule proxy
+// when the runtime installs one, the bridgeless native module proxy, or the legacy
+// NativeModules entry. It returns null rather than throwing when nothing is linked,
+// which is what lets the linking error below fire on first use instead of at import.
+const ReloadWidget: Spec = ReloadWidgetModule
 	? ReloadWidgetModule
 	: new Proxy(
-			{},
+			{} as Spec,
 			{
 				get() {
 					throw new Error(LINKING_ERROR);
